@@ -1,0 +1,12 @@
+{
+    "name": "deviantart-api",
+    "description": "Deviant Art API",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "3.x",
+        "request": "2.x",
+        "cheerio": "0.x",
+        "redis": "0.x"
+    }
+}
