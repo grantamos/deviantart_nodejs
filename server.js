@@ -6,6 +6,21 @@ var routes = require('./routes');
 
 var app = express();
 var version = "v1";
+var redisClient = redis.createClient();
+
+app.get("*", function(req, res, next){
+	req.db = redisClient;
+
+	req.db.get(req.originalUrl, function(err, reply){
+		if(reply){
+			routes.sendSuccess(res, JSON.parse(reply));
+			console.log("Sending cached response for: " + req.originalUrl);
+		}
+		else{
+			next();
+		}
+	});
+});
 
 app.get("/"+version+"/media/browse/", routes.media.browse);
 app.get("/"+version+"/media/search/", routes.media.search);

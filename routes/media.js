@@ -1,5 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
+var routes = require('./index');
 
 var timeToOrder = {
 	"8hours": "24",
@@ -65,7 +66,7 @@ var extractBrowseData = function(json){
 		image.userSymbol = $('div').attr('symbol');
 		image.userid = $('div').attr('userid');
 		image.category = $('div').attr('category');
-		image.title = $('a.t').html();
+		image.title = $('a.t').text().trim();
 		image.posted = $('span.age').html();
 
 		var imageData = $('a.thumb');
@@ -89,7 +90,6 @@ var extractBrowseData = function(json){
 		image.link = thumbData.attr('href');
 
 		data.push(image);
-		console.log(imageData+"\n\n");
 	};
 
 	return data;
@@ -108,19 +108,14 @@ exports.browse = function(req, res){
 	}
 
 	request(getBrowseUrl(time, offset, length, category), function(error, response, body){
-		if(!error && response.statusCode == 200){
-			res.statusCode = 200;
-			res.setHeader('Content-Type', 'application/json');
-			
+		if(!error && response.statusCode == 200){			
 			var json = JSON.parse(body);
-
-			res.send(extractBrowseData(json));
-			return;
+			json = extractBrowseData(json);
+			routes.sendResponse(req, res, json);
 		}
 		else{
 			res.writeHead(response.statusCode, {'Content-Type': 'text/plain'});
 			res.send("Server side error: " + error);
-			return;
 		}
 	});
 };
