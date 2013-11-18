@@ -3,14 +3,14 @@ var cheerio = require('cheerio');
 var routes = require('./index');
 
 var timeToOrder = {
-	"8hours": "24",
-	"alltime": "9",
-	"24hours": "11",
-	"3days": "13",
-	"1week": "14",
-	"1month": "15",
-	"newest": "5",
-	"hot": "67108864",
+	"8HRS": "24",
+	"ALL": "9",
+	"24HRS": "11",
+	"3DAYS": "13",
+	"WEEK": "14",
+	"MONTH": "15",
+	"NEW": "5",
+	"HOT": "67108864",
 	"undiscovered": "134217728"
 };
 
