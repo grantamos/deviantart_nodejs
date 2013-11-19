@@ -99,7 +99,7 @@ exports.browse = function(req, res){
 	var category = req.query.category;
 	var offset = req.query.offset || 0;
 	var length = 24;
-	var time = req.query.time || "8hours";
+	var time = req.query.time || "8HRS";
 	time = timeToOrder[time];
 
 	if(time == undefined){
