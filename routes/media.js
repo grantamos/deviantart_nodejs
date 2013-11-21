@@ -29,7 +29,7 @@ var getBrowseUrl = function(time, offset, length, category, query){
 	];
 
 	if(category != undefined)
-		args[1]["category_path"] = category.replace(/|/g,"/");
+		args[1]["category_path"] = category.replace(new RegExp("[\|]", "g"), "/");
 	if(query != undefined)
 		args[1]["freeform_user_input"] = query;
 
