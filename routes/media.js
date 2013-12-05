@@ -60,11 +60,13 @@ var extractBrowseData = function(json){
 		var $ = cheerio.load(html);
 
 		var image = {};
+		var user = {};
 
-		image.userIcon = $('div').attr('usericon');
-		image.username = $('div').attr('username');
-		image.userSymbol = $('div').attr('symbol');
-		image.userid = $('div').attr('userid');
+		user.userIcon = $('div').attr('usericon');
+		user.username = $('div').attr('username');
+		user.userSymbol = $('div').attr('symbol');
+		user.userid = $('div').attr('userid');
+
 		image.category = $('div').attr('category');
 		image.title = $('a.t').text().trim();
 		image.posted = $('span.age').html();
@@ -87,7 +89,9 @@ var extractBrowseData = function(json){
 			'width':imageData.attr('data-super-full-width'),
 			'height':imageData.attr('data-super-full-height')
 		};
-		image.link = thumbData.attr('href');
+		image.url = thumbData.attr('href');
+
+		image.user = user;
 
 		data.push(image);
 	};
