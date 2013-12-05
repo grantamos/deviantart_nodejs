@@ -92,7 +92,9 @@ var extractBrowseData = function(json){
 		data.push(image);
 	};
 
-	return data;
+	return {
+		"data": data
+	};
 };
 
 exports.browse = function(req, res){
