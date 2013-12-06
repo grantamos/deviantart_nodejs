@@ -122,7 +122,7 @@ exports.browse = function(req, res){
 			json.url = req.url;
 			json.route = req.route;
 			json.path = req.path;
-			json.next = req.protocol + "://" + req.get("host") + req.path + "?category=" + category + "&time=" + time + "&length=" + length + "&offset=" + offset;
+			json.next = req.protocol + "://" + req.get("host") + req.path + "?" + (category ? ("category=" + category) : "") + "&time=" + time + "&length=" + length + "&offset=" + offset;
 			routes.sendResponse(req, res, json);
 		}
 		else{
