@@ -106,23 +106,19 @@ exports.browse = function(req, res){
 	var offset = req.query.offset || 0;
 	var length = 24;
 	var time = req.query.time || "8HRS";
-	time = timeToOrder[time];
+	
+	var newTime = timeToOrder[time];
 
-	if(time == undefined){
+	if(newTime == undefined){
 		res.send({"error": "Invalid time: "+time});
 		return;
 	}
 
-	request(getBrowseUrl(time, offset, length, category), function(error, response, body){
+	request(getBrowseUrl(newTime, offset, length, category), function(error, response, body){
 		if(!error && response.statusCode == 200){			
 			var json = JSON.parse(body);
 			json = extractBrowseData(json);
-			json.protocol = req.protocol;
-			json.host = req.get('host');
-			json.url = req.url;
-			json.route = req.route;
-			json.path = req.path;
-			json.next = req.protocol + "://" + req.get("host") + req.path + "?" + (category ? ("category=" + category) : "") + "&time=" + time + "&length=" + length + "&offset=" + offset;
+			json.next = req.protocol + "://" + req.get("host") + req.path + "?" + (category ? ("category=" + category) : "") + "&time=" + newTime + "&length=" + length + "&offset=" + offset;
 			routes.sendResponse(req, res, json);
 		}
 		else{
