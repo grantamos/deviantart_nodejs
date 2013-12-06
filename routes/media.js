@@ -110,7 +110,10 @@ exports.browse = function(req, res){
 	var newTime = timeToOrder[time];
 
 	if(newTime == undefined){
-		res.send({"error": "Invalid time: "+time});
+		res.send({
+			"error": "Invalid time: "+time,
+			"possibleValues": timeToOrder
+		});
 		return;
 	}
 
@@ -118,7 +121,7 @@ exports.browse = function(req, res){
 		if(!error && response.statusCode == 200){			
 			var json = JSON.parse(body);
 			json = extractBrowseData(json);
-			json.next = req.protocol + "://" + req.get("host") + req.path + "?" + (category ? ("category=" + category) : "") + "&time=" + newTime + "&length=" + length + "&offset=" + offset;
+			json.next = req.protocol + "://" + req.get("host") + req.path + "?" + (category ? ("category=" + category) : "") + "&time=" + time + "&length=" + length + "&offset=" + offset;
 			routes.sendResponse(req, res, json);
 		}
 		else{
