@@ -117,6 +117,7 @@ exports.browse = function(req, res){
 		if(!error && response.statusCode == 200){			
 			var json = JSON.parse(body);
 			json = extractBrowseData(json);
+			json.next = getBrowseUrl(time, offset+length, length, category);
 			routes.sendResponse(req, res, json);
 		}
 		else{
