@@ -74,7 +74,7 @@ var extractBrowseData = function(json){
 		var imageData = $('a.thumb');
 		var thumbData = imageData.find('img');
 
-		image.imageData = imageData.html();
+		image.imageData = $.html('a.thumb');
 
 		image.thumb = {
 			'url':thumbData.attr('src'),
