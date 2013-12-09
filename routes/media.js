@@ -71,8 +71,10 @@ var extractBrowseData = function(json){
 		image.title = $('a.t').text().trim();
 		image.posted = $('span.age').html();
 
-		var imageData = $('a .thumb');
+		var imageData = $('a.thumb');
 		var thumbData = imageData.find('img');
+
+		image.imageData = imageData;
 
 		image.thumb = {
 			'url':thumbData.attr('src'),
